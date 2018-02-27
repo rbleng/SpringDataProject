@@ -7,6 +7,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EmployeeRepositoryTest {
     private ApplicationContext ctx = null;
     private EmployeeRepository employeeRepository = null;
@@ -31,4 +34,108 @@ public class EmployeeRepositoryTest {
         System.out.println("id:" + employee.getId() + " , name:" + employee.getName()
                 + " ,age:" + employee.getAge());
     }
+
+
+    @Test
+    public void findByNameStartingWithAndAgeLessThan() {
+        List<Employee> employees = employeeRepository.findByNameStartingWithAndAgeLessThan("test", 22);
+
+        for (Employee employee : employees) {
+            System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+                    + ", age:" + employee.getAge());
+        }
+    }
+
+    @Test
+    public void findByNameEndingWithAndAgeLessThan() {
+        List<Employee> employees = employeeRepository.findByNameEndingWithAndAgeLessThan("6", 25);
+
+        for (Employee employee : employees) {
+            System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+                    + ", age:" + employee.getAge());
+        }
+    }
+
+    @Test
+    public void findByNameInOrAgeLessThan() {
+        List<String> names = new ArrayList<>();
+        names.add("test1");
+        names.add("test2");
+        names.add("test3");
+        List<Employee> employees = employeeRepository.findByNameInOrAgeLessThan(names, 22);
+
+        for (Employee employee : employees) {
+            System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+                    + ", age:" + employee.getAge());
+        }
+    }
+
+    @Test
+    public void findByNameInAndAgeLessThan() {
+        List<String> names = new ArrayList<>();
+        names.add("test1");
+        names.add("test2");
+        names.add("test3");
+        List<Employee> employees = employeeRepository.findByNameInAndAgeLessThan(names, 22);
+
+        for (Employee employee : employees) {
+            System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+                    + ", age:" + employee.getAge());
+        }
+    }
+
+//    @Test
+//    public void testGetEmployeeByMaxId() {
+//        Employee employee = employeeRepository.getEmployeeByMaxId();
+//        System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+//                + ", age:" + employee.getAge());
+//    }
+
+    @Test
+    public void testQueryParams1() {
+        List<Employee> employees = employeeRepository.queryParams1("zhangsan", 20);
+        for (Employee employee : employees) {
+            System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+                    + ", age:" + employee.getAge());
+        }
+    }
+
+    @Test
+    public void testQueryParams2() {
+        List<Employee> employees = employeeRepository.queryParams2("zhangsan", 20);
+        for (Employee employee : employees) {
+            System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+                    + ", age:" + employee.getAge());
+        }
+    }
+
+    @Test
+    public void testQueryLike1() {
+        List<Employee> employees = employeeRepository.queryLike1("test");
+        for (Employee employee : employees) {
+            System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+                    + ", age:" + employee.getAge());
+        }
+    }
+
+    @Test
+    public void testQueryLike2() {
+        List<Employee> employees = employeeRepository.queryLike2("test1");
+        for (Employee employee : employees) {
+            System.out.println("id:" + employee.getId() + ", name:" + employee.getName()
+                    + ", age:" + employee.getAge());
+        }
+    }
+
+    @Test
+    public void testGetCount() {
+        long count = employeeRepository.getCount();
+        System.out.println("count:" + count);
+    }
+
+    @Test
+    public void testUpdate() {
+        employeeRepository.update(1, 55);
+    }
+
 }
